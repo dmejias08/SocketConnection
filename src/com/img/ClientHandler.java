@@ -23,18 +23,21 @@ public class ClientHandler implements Runnable{
     public void run() {
         try {
             while (true) {
-                String request = in.readUTF();
-                if (request == "name"){
-                    out.writeUTF("hello");
-                }else {
-                    System.out.println("CLIENT"+name+" leaving...");
+                String command = in.readUTF();
+                System.out.println("Command: " + command);
+                if (command.equals("exit")) {
+                    out.writeUTF("Exit");
+                    client.close();
+                    in.close();
+                    out.close();
+                    System.out.println("Closing connection");
                     break;
                 }
+                String response = "Hola";
+                out.writeUTF(response);
             }
-        }catch (Exception e) {
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 }

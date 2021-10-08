@@ -19,22 +19,35 @@ public class Client {
         in = new DataInputStream(server.getInputStream());
         out = new DataOutputStream(server.getOutputStream());
 
-        while (true){
-            System.out.println(in.readUTF());
-            String request = sn.nextLine();
-            out.writeUTF(request);
-            if(request.equals("Exit")){
-                System.out.println("Closing connection...");
-                server.close();
-                System.out.println("Connection closed");
-                break;
+        try {
+            while (true) {
+                System.out.println(">");
+                String request = sn.nextLine();
+//                out.writeUTF(request);
+                System.out.println("Request: " + request);
+                if (request.equals(null)) {
+                    System.out.println("Request is null");
+                    continue;
+                } else {
+                    out.writeUTF(request);
+                    String response = in.readUTF();
+                    if(response.equals("Exit")){
+                        server.close();
+                        in.close();
+                        out.close();
+                        System.out.println("Closing connection");
+                        break;
+                    }
+                    System.out.println("Response: " + response);
+                }
+
             }
-            String response = in.readUTF();
-            System.out.println("Response: "+response);
+        }catch (Exception e) {
+            sn.close();
+            in.close();
+            out.close();
+            e.printStackTrace();
         }
-        sn.close();
-        in.close();
-        out.close();
 
     }
 }
