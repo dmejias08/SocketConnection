@@ -16,7 +16,7 @@ public class Server {
     public static ArrayList<ClientHandler> clients = new ArrayList<>();
     public static ArrayList<Integer> clientNumber = new ArrayList<>();
     public static int contClients = 1;
-    private static ExecutorService limit = Executors.newFixedThreadPool(10);
+    private static ExecutorService limit = Executors.newFixedThreadPool(20);
 
 
 
