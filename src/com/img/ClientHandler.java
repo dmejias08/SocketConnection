@@ -1,8 +1,8 @@
 package com.img;
 
-import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
+import java.util.Stack;
 
 public class ClientHandler implements Runnable{
     private Socket client;
@@ -40,4 +40,55 @@ public class ClientHandler implements Runnable{
             e.printStackTrace();
         }
     }
+
+    public String infixToPosfix (String exp){
+
+        // empty string for result
+        String result = new String ("");
+
+        // empty stack for operators
+        Stack<Character> operators = new Stack<>();
+
+        for (int i = 0; i<exp.length(); i++){
+            char ch = exp.charAt(i);
+
+            if (Character.isDigit(ch)){
+                result += ch;
+
+            }else if (String.valueOf(ch) == "("){
+                operators.push(ch);
+
+            // pop until find "("
+            }else if (String.valueOf(ch) == ")"){
+                while (!operators.isEmpty() &&
+                        String.valueOf(operators.peek()) != "("){
+                    result += operators.pop();
+                    operators.pop();
+                }
+            }else { // found an operator
+                while (!operators.isEmpty()&&
+                        Prec(String.valueOf(ch)) <= Prec(String.valueOf(operators.peek()))){
+                    result += operators.pop();
+                }
+            }
+            operators.push(ch);
+        }
+        //pop all
+        while (!operators.isEmpty()){
+            if(String.valueOf(operators.peek()) == "("){
+                return "Invalid";
+            }
+        }
+        return result;
+    }
+    static int Prec (String operator){
+        if (operator == "+" || operator == "-"){
+            return 1;
+        }
+        else if (operator == "*" || operator == "/"){
+            return 2;
+        }
+        return -1;
+    }
+
 }
