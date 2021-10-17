@@ -13,7 +13,7 @@ public class Server {
     public static ServerSocket server;
     public static Socket client;
     public static final int port = 9090;
-    public static ArrayList<ClientHandler> clients = new ArrayList<>();
+    public static ArrayList<ClientHandler> clients = new ArrayList<>(); //arreglar lista
     public static ArrayList<Integer> clientNumber = new ArrayList<>();
     public static int contClients = 1;
     private static ExecutorService limit = Executors.newFixedThreadPool(20);
