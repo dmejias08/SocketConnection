@@ -32,7 +32,9 @@ public class ClientHandler implements Runnable {
                     System.out.println("Closing connection");
                     break;
                 }
-                String response = infixToPosfix(command);
+                BinaryTree tree = new BinaryTree();
+                int result = evalBinaryTree(tree.BinaryTree(infixToPosfix(command)));
+                String response = String.valueOf(result);
                 out.writeUTF(response);
             }
         } catch (IOException e) {
@@ -68,12 +70,12 @@ public class ClientHandler implements Runnable {
             return leftSubTree + rightSubTree;
         }
         if (root.data == '-'){
-            return leftSubTree + rightSubTree;
+            return rightSubTree - leftSubTree ;
         }
         if (root.data == '*'){
-            return leftSubTree + rightSubTree;
+            return leftSubTree * rightSubTree;
         }
-        return leftSubTree / rightSubTree;
+        return rightSubTree / leftSubTree ;
 
     }
 
