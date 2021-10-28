@@ -5,8 +5,19 @@ import java.util.Stack;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println(charToInt('3'));
 
     }
+    // evaluate binary tress
+    public static int charToInt(char num) {
+        int num1 = 0;
+
+        for(int k=0; k < String.valueOf(num).length(); k++){
+            num1 =  num1 *10 + ((int)String.valueOf(num).charAt(k)-48);
+        }
+        return num1;
+    }
+
 
 
 //    public static String infixToPosfix (String exp){

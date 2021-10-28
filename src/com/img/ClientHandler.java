@@ -40,6 +40,44 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    // evaluate binary tress
+    public static int charToInt(char num) {
+        int num1 = 0;
+
+        for(int k=0; k < String.valueOf(num).length(); k++){
+            num1 =  num1 *10 + ((int)String.valueOf(num).charAt(k)-48);
+        }
+        return num1;
+    }
+
+    public static int evalBinaryTree(Node root){
+
+        if(root == null){
+            return 0;
+        }
+
+        if (root.left == null && root.right == null){
+            return charToInt(root.data);
+        }
+
+        int leftSubTree = evalBinaryTree(root.left);
+
+        int rightSubTree = evalBinaryTree(root.right);
+
+        if (root.data == '+'){
+            return leftSubTree + rightSubTree;
+        }
+        if (root.data == '-'){
+            return leftSubTree + rightSubTree;
+        }
+        if (root.data == '*'){
+            return leftSubTree + rightSubTree;
+        }
+        return leftSubTree / rightSubTree;
+
+    }
+
+
     public static String infixToPosfix(String exp) {
 
         String result = "";
@@ -112,8 +150,6 @@ public class ClientHandler implements Runnable {
     }
 
     class BinaryTree {
-
-
         boolean foundOperator(char op) {
             if (op == '+' || op == '-' || op == '*' || op == '/') {
                 return true;
@@ -121,20 +157,20 @@ public class ClientHandler implements Runnable {
                 return false;
             }
         }
-        public BinaryTree(String expression){
+        public Node BinaryTree(String expression){
 
             Stack <Node> nodeStack = new Stack<Node>();
             Node node, node1, node2;
 
-            for (int j = 0; j < expression.length(); j++){
+            for (int j = 0; j < expression.length(); j++) {
                 char ch = expression.charAt(j);
 
                 // Found number add to the stack
-                if (foundOperator(ch) == false){
+                if (foundOperator(ch) == false) {
                     node = new Node(ch);
                     nodeStack.push(node);
 
-                }else{ //Found operator
+                } else { //Found operator
                     node = new Node(ch);
 
                     //Add its children
@@ -148,6 +184,8 @@ public class ClientHandler implements Runnable {
                     nodeStack.push(node);
                 }
             }
+            node = nodeStack.peek();
+            return node;
         }
     }
 }
