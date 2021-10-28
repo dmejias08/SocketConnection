@@ -64,7 +64,7 @@ public class ClientHandler implements Runnable{
                 while (!operators.isEmpty() &&
                         operators.peek() != '('){
                     result += operators.pop();
-                    System.out.println("Soy "+result);
+                    System.out.println("Soy " + result);
 //                    operators.pop();
 
                 }
@@ -80,11 +80,14 @@ public class ClientHandler implements Runnable{
         //pop all
         while (!operators.isEmpty()){
             System.out.println("last while");
-            if(operators.peek() == '(') {
+            if(operators.peek() == '(' && operators.isEmpty() ) {
                 break;
             }
             else if(operators.peek()!= '(') {
                 result += operators.pop();
+            }
+            else if(operators.peek() == '('){
+               Character trash = operators.pop();
             }
         }
         return result;
