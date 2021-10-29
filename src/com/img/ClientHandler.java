@@ -42,43 +42,6 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    // evaluate binary tress
-    public static int charToInt(char num) {
-        int num1 = 0;
-
-        for(int k=0; k < String.valueOf(num).length(); k++){
-            num1 =  num1 *10 + ((int)String.valueOf(num).charAt(k)-48);
-        }
-        return num1;
-    }
-
-    public static int evalBinaryTree(Node root){
-
-        if(root == null){
-            return 0;
-        }
-
-        if (root.left == null && root.right == null){
-            return charToInt(root.data);
-        }
-
-        int leftSubTree = evalBinaryTree(root.left);
-
-        int rightSubTree = evalBinaryTree(root.right);
-
-        if (root.data == '+'){
-            return leftSubTree + rightSubTree;
-        }
-        if (root.data == '-'){
-            return rightSubTree - leftSubTree ;
-        }
-        if (root.data == '*'){
-            return leftSubTree * rightSubTree;
-        }
-        return rightSubTree / leftSubTree ;
-
-    }
-
 
     public static String infixToPosfix(String exp) {
 
@@ -139,6 +102,7 @@ public class ClientHandler implements Runnable {
         return -1;
     }
 
+    //Node class BinaryTree
     class Node {
         char data;
         Node left;
@@ -151,6 +115,7 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    //Creating BinaryTree
     class BinaryTree {
         boolean foundOperator(char op) {
             if (op == '+' || op == '-' || op == '*' || op == '/') {
@@ -190,4 +155,42 @@ public class ClientHandler implements Runnable {
             return node;
         }
     }
+    // evaluate binary tress
+    public static int charToInt(char num) {
+        int num1 = 0;
+
+        for(int k=0; k < String.valueOf(num).length(); k++){
+            num1 =  num1 *10 + ((int)String.valueOf(num).charAt(k)-48);
+        }
+        return num1;
+    }
+
+    public static int evalBinaryTree(Node root){
+
+        if(root == null){
+            return 0;
+        }
+
+        if (root.left == null && root.right == null){
+            return charToInt(root.data);
+        }
+
+        int leftSubTree = evalBinaryTree(root.left);
+
+        int rightSubTree = evalBinaryTree(root.right);
+
+        if (root.data == '+'){
+            return leftSubTree + rightSubTree;
+        }
+        if (root.data == '-'){
+            return rightSubTree - leftSubTree ;
+        }
+        if (root.data == '*'){
+            return leftSubTree * rightSubTree;
+        }
+        return leftSubTree /rightSubTree ;
+
+    }
+
+
 }
